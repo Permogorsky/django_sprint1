@@ -1,5 +1,4 @@
-
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, Http404
 from django.shortcuts import render
 
 
@@ -10,7 +9,11 @@ def index(request: HttpRequest) -> HttpResponse:
 
 def post_detail(request: HttpRequest, id) -> HttpResponse:
     """Функция открывает страницу с подробным содержданием поста."""
-    return render(request, 'blog/detail.html', {'post': posts[id]})
+    try:
+        context = {'post': posts[id]}
+    except Exception:
+        raise Http404("Упс...пост не найден!")
+    return render(request, 'blog/detail.html', context)
 
 
 def category_posts(request: HttpRequest, category_slug) -> HttpResponse:
