@@ -12,7 +12,7 @@ def post_detail(request: HttpRequest, id) -> HttpResponse:
     try:
         context = {'post': posts[id]}
     except Exception:
-        raise Http404("Упс...пост не найден!")
+        raise Http404('Упс...пост не найден!')
     return render(request, 'blog/detail.html', context)
 
 
